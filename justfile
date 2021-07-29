@@ -29,7 +29,7 @@ dev: _ensure_npm_modules _mkcert (_tsc "--build")
         # TODO: https://vitejs.dev/config/#server-hmr
         APP_FQDN=${APP_FQDN} APP_PORT=${PORT_BROWSER} {{vite}}
     else
-        APP_ORIGIN=https://${APP_FQDN}:${APP_PORT}
+        APP_ORIGIN=https://${APP_FQDN}:${APP_PORT}metaframe-markdown/
         echo "Browser development pointing to: ${APP_ORIGIN}"
         VITE_APP_ORIGIN=${APP_ORIGIN} {{vite}}
     fi
