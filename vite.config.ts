@@ -11,6 +11,7 @@ const fileCert = `./.certs/${APP_FQDN}.pem`;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
+  base: '/metaframe-markdown/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
