@@ -22,14 +22,14 @@ This downloads the content at [https://github.com/metapages/metaframe-markdown/b
 
 ### via URL parameter with markdown content embedded:
 
-Add the base64 encoded markdown text string to the URL parameter `md`:
+Add the base64 encoded markdown text string to the URL hash parameter `base64`:
 
-	https://metapages.github.io/metaframe-markdown/?md=<base64 encoded markdown>
+	https://metapages.github.io/metaframe-markdown/#?base64=<base64 encoded markdown>
 
 For example:
 
 [embedded markdown link]:
 
-[https://metapages.github.io/metaframe-markdown/#?md=IyBFeGFtcGxlIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwKClRoaXMgZXhhbXBsZSBtZXRhZnJhbWUgaGFzIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwgb2YgdGhlIG1hcmtkb3duLWRpc3BsYXkgbWV0YWZyYW1lLiBUaGlzIHRleHQgaXMgZW1iZWRkZWQgaW4gdGhlIFVSTCBhbmQgc2hvd24gaGVyZS4KCiMjIEFuZCBhbm90aGVyIHN1YmhlYWRpbmcKSXQganVzdCBrZWVwcyBnb2luZw==](https://metapages.github.io/metaframe-markdown/#?md=IyBFeGFtcGxlIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwKClRoaXMgZXhhbXBsZSBtZXRhZnJhbWUgaGFzIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwgb2YgdGhlIG1hcmtkb3duLWRpc3BsYXkgbWV0YWZyYW1lLiBUaGlzIHRleHQgaXMgZW1iZWRkZWQgaW4gdGhlIFVSTCBhbmQgc2hvd24gaGVyZS4KCiMjIEFuZCBhbm90aGVyIHN1YmhlYWRpbmcKSXQganVzdCBrZWVwcyBnb2luZw==)
+[https://metapages.github.io/metaframe-markdown/#?base64=IyBFeGFtcGxlIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwKClRoaXMgZXhhbXBsZSBtZXRhZnJhbWUgaGFzIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwgb2YgdGhlIG1hcmtkb3duLWRpc3BsYXkgbWV0YWZyYW1lLiBUaGlzIHRleHQgaXMgZW1iZWRkZWQgaW4gdGhlIFVSTCBhbmQgc2hvd24gaGVyZS4KCiMjIEFuZCBhbm90aGVyIHN1YmhlYWRpbmcKSXQganVzdCBrZWVwcyBnb2luZw==](https://metapages.github.io/metaframe-markdown/#?base64=IyBFeGFtcGxlIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwKClRoaXMgZXhhbXBsZSBtZXRhZnJhbWUgaGFzIG1hcmtkb3duIGVtYmVkZGVkIGluIHRoZSBVUkwgb2YgdGhlIG1hcmtkb3duLWRpc3BsYXkgbWV0YWZyYW1lLiBUaGlzIHRleHQgaXMgZW1iZWRkZWQgaW4gdGhlIFVSTCBhbmQgc2hvd24gaGVyZS4KCiMjIEFuZCBhbm90aGVyIHN1YmhlYWRpbmcKSXQganVzdCBrZWVwcyBnb2luZw==)
 
 This gives you a simple way to create static notes or help pages.
