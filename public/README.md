@@ -24,7 +24,7 @@ This downloads the content at [https://github.com/metapages/metaframe-markdown/b
 
 Add the base64 encoded markdown text string to the URL parameter `md`:
 
-	https://github.com/metapages/metaframe-markdown/?md=<base64 encoded markdown>
+	https://metapages.github.io/metaframe-markdown/?md=<base64 encoded markdown>
 
 For example:
 
