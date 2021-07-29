@@ -11,8 +11,25 @@ export const Home: FunctionalComponent = () => {
     const metaframe = useContext(MetaframeContext);
     const [ url ] = useHashParam("url");
     const [ base64 ] = useHashParamBase64("base64");
-    const [ markdown, setMarkdown ] = useState<string>(HELP);
+    const [ markdown, setMarkdown ] = useState<string>("");
     const divToRender = useRef<HTMLDivElement>(null);
+
+    // if there's no URL parameters, default to showing the help
+    useEffect(() => {
+        let timeout:number|undefined;
+        if (markdown === "" && !url && !base64) {
+            setTimeout(() => {
+                setMarkdown(HELP);
+            }, 200);
+        }
+
+        return () => {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        }
+
+    }, [url, base64, markdown, setMarkdown]);
 
     // whatever metaframe inputs we get, assume raw markdown, render
     useEffect(() => {
