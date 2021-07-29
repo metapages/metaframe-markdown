@@ -1,16 +1,14 @@
 {
 	"version": "0.3",
 	"metadata": {
-		"title": "metaframe-template"
+		"version": "1.0",
+		"title": "markdown-it",
+		"author": "Dion Amago Whitehead",
+		"description": "https://www.npmjs.com/package/markdown-it"
 	},
 	"inputs": {
 		"*": {
-			"type": "application/octet-stream:base64"
-		}
-	},
-    "outputs": {
-		"*": {
-			"type": "application/octet-stream:base64"
+			"type": "text/markdown; charset=UTF-8"
 		}
 	}
 }

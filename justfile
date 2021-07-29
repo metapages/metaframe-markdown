@@ -38,6 +38,10 @@ dev: _ensure_npm_modules _mkcert (_tsc "--build")
 watch:
     watchexec -w src -w tsconfig.json -w package.json -w vite.config.ts -- just build
 
+# deploy to gh-pages branch
+publish: build
+	node_modules/gh-pages/bin/gh-pages.js -d dist
+
 # deletes .certs dist
 clean:
     rm -rf .certs dist
