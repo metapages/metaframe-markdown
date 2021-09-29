@@ -1,6 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { Home } from "./routes/home";
-import "milligram/dist/milligram.min.css"
+import { Route as Home } from "./routes/home";
 
 export const App: FunctionalComponent = () => {
   return <Home />;

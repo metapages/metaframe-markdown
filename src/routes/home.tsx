@@ -9,7 +9,14 @@ import md from "markdown-it";
 import { useEffect } from "react";
 import help from "../../public/README.md?raw";
 
-const MD = md("commonmark");
+// const MD = md("commonmark");
+const MD = md({
+  html: true,
+  linkify: true,
+  typographer: true
+});
+
+
 
 let HELP = help;
 if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
@@ -19,7 +26,7 @@ if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
   );
 }
 
-export const Home: FunctionalComponent = () => {
+export const Route: FunctionalComponent = () => {
   const metaframe = useContext(MetaframeContext);
   const [url] = useHashParam("url");
   const [base64] = useHashParamBase64("base64");
