@@ -1,10 +1,7 @@
 import { FunctionalComponent } from "preact";
-import { useContext, useRef, useState } from "preact/hooks";
-import {
-  MetaframeContext,
-  useHashParam,
-  useHashParamBase64,
-} from "@metapages/metaframe-hook";
+import { useRef, useState } from "preact/hooks";
+import { useMetaframeAndInput } from "@metapages/metaframe-hook";
+import { useHashParam, useHashParamBase64 } from "@metapages/hash-query";
 import md from "markdown-it";
 import { useEffect } from "react";
 import help from "../../public/README.md?raw";
@@ -13,21 +10,19 @@ import help from "../../public/README.md?raw";
 const MD = md({
   html: true,
   linkify: true,
-  typographer: true
+  typographer: true,
 });
-
-
 
 let HELP = help;
 if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
   HELP = HELP.replaceAll(
-    "https://metapages.github.io/metaframe-markdown/",
+    "https://markdown.mtfm.io/",
     import.meta.env.VITE_APP_ORIGIN as string
   );
 }
 
 export const Route: FunctionalComponent = () => {
-  const metaframe = useContext(MetaframeContext);
+  const metaframeBlob = useMetaframeAndInput();
   const [url] = useHashParam("url");
   const [base64] = useHashParamBase64("base64");
   const [markdown, setMarkdown] = useState<string>("");
@@ -51,14 +46,14 @@ export const Route: FunctionalComponent = () => {
 
   // whatever metaframe inputs we get, assume raw markdown, render
   useEffect(() => {
-    if (!metaframe.inputs) {
+    if (!metaframeBlob.inputs) {
       return;
     }
-    var oneKey = Object.keys(metaframe.inputs)[0];
+    var oneKey = Object.keys(metaframeBlob.inputs)[0];
     if (!oneKey) {
       return;
     }
-    let data = metaframe.inputs[oneKey];
+    let data = metaframeBlob.inputs[oneKey];
     if (data) {
       try {
         if (oneKey.endsWith("base64")) {
@@ -72,7 +67,7 @@ export const Route: FunctionalComponent = () => {
       }
       setMarkdown(data);
     }
-  }, [metaframe.inputs, setMarkdown]);
+  }, [metaframeBlob.inputs, setMarkdown]);
 
   // if url hash param, use that
   useEffect(() => {
