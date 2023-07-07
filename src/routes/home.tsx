@@ -1,10 +1,31 @@
-import { FunctionalComponent } from "preact";
-import { useRef, useState } from "preact/hooks";
-import { useMetaframeAndInput } from "@metapages/metaframe-hook";
-import { useHashParam, useHashParamBase64 } from "@metapages/hash-query";
-import md from "markdown-it";
-import { useEffect } from "react";
-import help from "../../public/README.md?raw";
+import { useEffect } from 'react';
+
+import md from 'markdown-it';
+import Mermaid from 'mermaid';
+import { FunctionalComponent } from 'preact';
+import {
+  useRef,
+  useState,
+} from 'preact/hooks';
+
+import {
+  useHashParam,
+  useHashParamBase64,
+} from '@metapages/hash-query';
+import { useMetaframeAndInput } from '@metapages/metaframe-hook';
+
+// import markdownItMermaid from '@wekanteam/markdown-it-mermaid';
+import { MermaidPlugIn } from '../components/mermaid';
+import help from '../README.md?raw';
+
+const encodeMarkdown = (md: string) => {
+  var b64 = window.btoa(encodeURIComponent(md));
+  return b64;
+}
+
+const decodeMarkdown = (b64: string) => {
+  return decodeURIComponent(window.atob( b64 ));
+}
 
 // const MD = md("commonmark");
 const MD = md({
@@ -12,6 +33,7 @@ const MD = md({
   linkify: true,
   typographer: true,
 });
+MD.use(MermaidPlugIn);
 
 let HELP = help;
 if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
@@ -57,7 +79,7 @@ export const Route: FunctionalComponent = () => {
     if (data) {
       try {
         if (oneKey.endsWith("base64")) {
-          data = atob(data);
+          data = decodeMarkdown(data);
         }
       } catch (err) {
         setMarkdown(
@@ -103,6 +125,7 @@ export const Route: FunctionalComponent = () => {
     try {
       var result = MD.render(markdown);
       divToRender.current!.innerHTML = result;
+      Mermaid.run();
     } catch (err) {
       setMarkdown(
         `# Error rendering markdown \n\n - markdown: \`${markdown}\` \n - err: ${err}`

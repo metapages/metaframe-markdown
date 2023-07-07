@@ -8,7 +8,7 @@ Set the markdown via:
     <textarea id="textbox" style="width:100%"># Copy your markdown here</textarea>
     <button onclick='(function(){
 			const markdownText = document.getElementById("textbox").value;
-			const link = "https://markdown.mtfm.io/#?base64=" + btoa(markdownText);
+			const link = "https://markdown.mtfm.io/#?base64=" + window.btoa(encodeURIComponent(markdownText));
 			document.getElementById("embedlink").innerHTML = "<a href=\"" + link + "\">" + link + "</a>";
 		})();'>Create markdown link</button>
 	<div id="embedlink"></div>
