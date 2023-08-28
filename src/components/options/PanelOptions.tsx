@@ -35,7 +35,7 @@ const validationSchema = yup.object({
 interface FormType extends yup.InferType<typeof validationSchema> {}
 
 export const PanelOptions: React.FC = () => {
-  const [options, setOptions] = useOptions();
+  const [options, setOptions] = useOptions({});
 
   const onSubmit = useCallback(
     (values: FormType) => {
@@ -49,7 +49,7 @@ export const PanelOptions: React.FC = () => {
   );
 
   const formik = useFormik({
-    initialValues: options || {},
+    initialValues: options,
     onSubmit,
     validationSchema,
   });
@@ -71,12 +71,12 @@ export const PanelOptions: React.FC = () => {
           </FormLabel>
           <RadioGroup
             id="displaymode"
-            onChange={(e) => {
+            onChange={(e: string) => {
               // currently RadioGroup needs this to work
               formik.setFieldValue("displaymode", e);
               formik.handleSubmit();
             }}
-            value={formik?.values?.displaymode || "default"}
+            value={formik?.values?.displaymode}
           >
             <Stack
               pl="30px"
@@ -90,7 +90,7 @@ export const PanelOptions: React.FC = () => {
                 Default display, show markdown as a scrollable page
               </Radio>
               <Radio value="slide">
-                All markdown content fits on a single page
+                All markdown content fits on a single page (we were deployed)
               </Radio>
             </Stack>
           </RadioGroup>
