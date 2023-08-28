@@ -16,8 +16,6 @@ PACKAGE_NAME_SHORT                 := file_name(`cat package.json | jq -r '.name
 export DOCKER_IMAGE_PREFIX         := "ghcr.io/metapages/" + PACKAGE_NAME_SHORT
 # Always assume our current cloud ops image is versioned to the exact same app images we deploy
 export DOCKER_TAG                  := `if [ "${GITHUB_ACTIONS}" = "true" ]; then echo "${GITHUB_SHA}"; else echo "$(git rev-parse --short=8 HEAD)"; fi`
-# The NPM_TOKEN is required for publishing to https://www.npmjs.com
-NPM_TOKEN                          := env_var_or_default("NPM_TOKEN", "")
 # Source of deno scripts. When developing we need to switch this
 DENO_SOURCE                        := env_var_or_default("DENO_SOURCE", "https://deno.land/x/metapages@v0.0.14")
 # vite needs an extra memory boost
@@ -38,7 +36,7 @@ grey                               := "\\e[90m"
     just --list --unsorted --list-heading $'🌱 Commands:\n\n'
     echo -e ""
     echo -e "    Github  URL 🔗 {{green}}$(cat package.json | jq -r '.repository.url'){{normal}}"
-    echo -e "    Publish URL 🔗 {{green}}https://$(cat package.json | jq -r '.name' | sd '/.*' '' | sd '@' '').github.io/{{PACKAGE_NAME_SHORT}}/{{normal}}"
+    echo -e "    Publish URL 🔗 {{green}}https://$(cat package.json | jq -r '.name' | sd '@metapages/metaframe-' '').mtfm.io/{{normal}}"
     echo -e "    Develop URL 🔗 {{green}}https://{{APP_FQDN}}:{{APP_PORT}}/{{normal}}"
     echo -e ""
 
@@ -59,6 +57,9 @@ dev: _mkcert _ensure_npm_modules (_tsc "--build")
     export CERT_KEY_FILE=.certs/{{APP_FQDN}}-key.pem
     export BASE=
     VITE_APP_ORIGIN=${APP_ORIGIN} {{vite}} --clearScreen false ${MAYBE_OPEN_BROWSER}
+
+generate-readme-from-notion:
+    NOTION_PAGE_ID="https://www.notion.so/metapages/README-md-markdown-mtfm-io-4e9e1f23e599460fa9a8320b5cbde988?pvs=4" just ~/dev/git/metapages/cetami.io/api/functions/notion-page-to-markdown {{justfile_directory()}}/public README.md
 
 # Increment semver version, push the tags (triggers "on-tag-version")
 @publish npmversionargs="patch": _fix_git_actions_permission _ensureGitPorcelain (_npm_version npmversionargs)
@@ -83,7 +84,7 @@ _browser_client_build BASE="":
 @test: (_tsc "--build") build
 
 # Build the [browser app, npm lib] for production. Called automatically by "test" and "publish"
-build BASE="": _ensure_npm_modules (_tsc "--build") (_browser_client_build BASE) _npm_build
+build BASE="": _ensure_npm_modules (_tsc "--build") (_browser_client_build BASE)
 
 # Deletes: [ .certs, dist ]
 @clean:
@@ -98,54 +99,10 @@ serve: _mkcert build
     cd docs && \
     npx http-server --cors '*' -a {{APP_FQDN}} -p {{APP_PORT}} --ssl --cert ../.certs/{{APP_FQDN}}.pem --key ../.certs/{{APP_FQDN}}-key.pem
 
-# Build npm package for publishing
-@_npm_build: _ensure_npm_modules
-    mkdir -p dist
-    rm -rf dist/*
-    {{tsc}} --noEmit false --project ./tsconfig.npm.json
-    OUTDIR=./dist \
-    DEPLOY_TARGET=lib \
-        deno run --allow-all --unstable {{DENO_SOURCE}}/browser/vite-build.ts
-    echo "  ✅ npm build"
-
 # bumps version, commits change, git tags
 @_npm_version npmversionargs="patch":
     npm version {{npmversionargs}}
     echo -e "  📦 new version: {{green}}$(cat package.json | jq -r .version){{normal}}"
-
-# If the npm version does not exist, publish the module
-_npm_publish: _require_NPM_TOKEN _npm_build
-    #!/usr/bin/env bash
-    set -euo pipefail
-    if [ "$CI" != "true" ]; then
-        # This check is here to prevent publishing if there are uncommitted changes, but this check does not work in CI environments
-        # because it starts as a clean checkout and git is not installed and it is not a full checkout, just the tip
-        if [[ $(git status --short) != '' ]]; then
-            git status
-            echo -e '💥 Cannot publish with uncommitted changes'
-            exit 2
-        fi
-    fi
-
-    PACKAGE_EXISTS=true
-    if npm search $(cat package.json | jq -r .name) | grep -q  "No matches found"; then
-        echo -e "  👉 new npm module !"
-        PACKAGE_EXISTS=false
-    fi
-    VERSION=$(cat package.json | jq -r '.version')
-    if [ $PACKAGE_EXISTS = "true" ]; then
-        INDEX=$(npm view $(cat package.json | jq -r .name) versions --json | jq "index( \"$VERSION\" )")
-        if [ "$INDEX" != "null" ]; then
-            echo -e '  🌳 Version exists, not publishing'
-            exit 0
-        fi
-    fi
-
-    echo -e "  👉 PUBLISHING npm version $VERSION"
-    if [ ! -f .npmrc ]; then
-        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-    fi
-    npm publish --access public .
 
 # compile typescript src, may or may not emit artifacts
 _tsc +args="": _ensure_npm_modules
@@ -231,9 +188,6 @@ _ensureGitPorcelain:
     if [ "${GITHUB_WORKSPACE}" = "" ]; then
         deno run --allow-all --unstable {{DENO_SOURCE}}/git/git-fail-if-uncommitted-files.ts
     fi
-
-@_require_NPM_TOKEN:
-	if [ -z "{{NPM_TOKEN}}" ]; then echo "Missing NPM_TOKEN env var"; exit 1; fi
 
 _fix_git_actions_permission:
     #!/usr/bin/env bash

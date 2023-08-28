@@ -8,7 +8,7 @@ const htmlEntities = (str) =>
 
 const MermaidChart = (code) => {
   try {
-    return `<div class="mermaid" >${code}</div>`;
+    return `<div class="mermaid" style={{width:"100%"}}>${code}</div>`;
   } catch (err) {
     return `<pre>${htmlEntities(err.name)}: ${htmlEntities(err.message)}</pre>`;
   }
@@ -18,7 +18,6 @@ const MermaidPlugIn = (md, opts) => {
   Object.assign(MermaidPlugIn.default, opts);
   const { token: _token = "mermaid", ...dictionary } =
     MermaidPlugIn.default.dictionary;
-  // const dictionary = swapObj(_dictionary);
   Mermaid.initialize(MermaidPlugIn.default);
 
   const defaultRenderer = md.renderer.rules.fence.bind(md.renderer.rules);
@@ -46,6 +45,7 @@ MermaidPlugIn.default = {
   flowchart: {
     htmlLabels: true,
     useMaxWidth: true,
+    width: "100%",
   },
   dictionary: {
     token: "mermaid",

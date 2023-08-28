@@ -3,11 +3,20 @@
 	"metadata": {
 		"version": "1.0",
 		"title": "markdown-it",
-		"author": "Dion Amago Whitehead",
-		"description": "https://www.npmjs.com/package/markdown-it"
+		"author": "Dion Whitehead",
+		"description": "Markdown renderer, with mermaid support"
 	},
 	"inputs": {
-		"*": {
+		"markdown": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"md": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"markdown-base64": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"md-base64": {
 			"type": "text/markdown; charset=UTF-8"
 		}
 	}
