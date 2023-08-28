@@ -1,0 +1,97 @@
+html, 
+body {
+    height: 100%;
+    background-color : transparent;
+}
+
+.iframe-container {
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+  background-color: white;
+}
+
+.iframe-container iframe {
+  border: 0;
+  height: 100%;
+  /* height: calc(100vh - 580px); */
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+  /* height: 40vh; */
+}
+
+.flex-item-center {
+    align-self: center;
+}
+
+
+.div {
+  width: 100%;
+}
+
+.markdown-text {
+  width: 100%;
+  padding-left: 20px;
+  /* margin-left: 20px; */
+  /* padding-right: 2rem; */
+
+  /* border: 2px;
+  border-color: red;
+  border-style: solid; */
+}
+
+
+
+/* https://stackoverflow.com/questions/28439310/scale-an-image-to-maximally-fit-available-space-and-center-it */
+.container1 {
+  /* border: 2px;
+  border-color: red;
+  border-style: solid; */
+  /* height: 300px; */
+  height: 100%;
+  /* width: 500px; */
+  width: 100%;
+}
+.container2 {
+  border: 2px;
+  border-color: blue;
+  border-style: solid;
+  height: 500px;
+  width: 300px;
+}
+.fill-vertical {
+  height: 100%;
+}
+.fill-horizontal {
+  width: 100%;
+}
+.centerImage {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+.centerImage img {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+:root {
+  /* color-scheme: only light; */
+  color-scheme: only dark;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+      background: #000;
+  }
+}
