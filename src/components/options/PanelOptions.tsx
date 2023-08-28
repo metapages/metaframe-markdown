@@ -39,7 +39,7 @@ export const PanelOptions: React.FC = () => {
 
   const onSubmit = useCallback(
     (values: FormType) => {
-      const newOptions = values as Options;
+      const newOptions = (values || {}) as Options;
       if (newOptions.displaymode === "default") {
         delete newOptions.displaymode;
       }
@@ -49,7 +49,7 @@ export const PanelOptions: React.FC = () => {
   );
 
   const formik = useFormik({
-    initialValues: options,
+    initialValues: options || {},
     onSubmit,
     validationSchema,
   });
