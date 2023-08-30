@@ -21,19 +21,12 @@ const generateRule = (opts:PluginOptions) : ((state: StateCore) => boolean) => {
     for (const [i, token] of state.tokens.entries()) {
       if (token?.children?.[0]?.type === "image") {
           state.tokens[i - 1].tag = "div";
-          state.tokens[i - 1].attrPush(["class", "container1 centerImage"]);
+          state.tokens[i - 1].attrPush(["class", "standalone-image-container"]);
           state.tokens[i + 1].tag = "div";
-          // state.tokens[i + 1].attrPush(["class", "container1 centerImage"]);
-          // token.tag = "div"
-          token.attrPush(["class", "fill-vertical"]);
       }
 
       if (token?.children?.[0]?.type === "text") {
         state.tokens[i - 1].attrPush(["class", "markdown-text"]);
-        // if (token.tag === "p") {
-        //   // token.attrPush(["class", "markdown-text"]);
-          
-        // }
       }
 
     }

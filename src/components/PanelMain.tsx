@@ -9,7 +9,7 @@ import Mermaid from 'mermaid';
 
 import { useMarkdown } from '../hooks/useMarkdown';
 import { MermaidPlugIn } from '../markdown-plugins/mermaid';
-import example_plugin from '../markdown-plugins/single-screen';
+import SingleScreenPlugin from '../markdown-plugins/single-screen';
 import { useOptions } from './options/useOptions';
 
 /**
@@ -34,7 +34,7 @@ export const PanelMain: React.FC = () => {
         typographer: true,
       });
       MD.use(MermaidPlugIn);
-      MD.use(example_plugin, options || {});
+      MD.use(SingleScreenPlugin, options || {});
       MD.use(markdownAnchor, { level: [1, 2, 3] });
 
       var result = MD.render(markdown);
@@ -49,6 +49,7 @@ export const PanelMain: React.FC = () => {
 
   return (
     <div
+      id="markdown-root-div"
       style={RootStyles[options?.displaymode || "default"]}
       ref={divToRender}
     />
