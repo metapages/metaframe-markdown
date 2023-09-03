@@ -23,11 +23,11 @@ import {
 } from './useOptions';
 
 const OptionDescription: Record<string, string> = {
-  displaymode: "Display mode",
+  dm: "Display mode",
 };
 
 const validationSchema = yup.object({
-  displaymode: yup
+  dm: yup
     .string()
     .oneOf(["default", "slide"] as DisplayMode[])
     .optional(),
@@ -40,8 +40,8 @@ export const PanelOptions: React.FC = () => {
   const onSubmit = useCallback(
     (values: FormType) => {
       const newOptions = (values || {}) as Options;
-      if (newOptions.displaymode === "default") {
-        delete newOptions.displaymode;
+      if (newOptions.dm === "default") {
+        delete newOptions.dm;
       }
       setOptions(newOptions);
     },
@@ -53,6 +53,8 @@ export const PanelOptions: React.FC = () => {
     onSubmit,
     validationSchema,
   });
+
+  console.log('formik?.values?.dm', formik?.values?.dm);
 
   return (
     <VStack
@@ -70,13 +72,13 @@ export const PanelOptions: React.FC = () => {
             Persist changes to the menu configuration to:
           </FormLabel>
           <RadioGroup
-            id="displaymode"
+            id="dm"
             onChange={(e: string) => {
               // currently RadioGroup needs this to work
-              formik.setFieldValue("displaymode", e);
+              formik.setFieldValue("dm", e);
               formik.handleSubmit();
             }}
-            value={formik?.values?.displaymode}
+            value={formik?.values?.dm || "default"}
           >
             <Stack
               pl="30px"
@@ -90,7 +92,7 @@ export const PanelOptions: React.FC = () => {
                 Default display, show markdown as a scrollable page
               </Radio>
               <Radio value="slide">
-                All markdown content fits on a single page (we were deployed)
+                Presentation mode: attempt to fit all content on a single page, center headings
               </Radio>
             </Stack>
           </RadioGroup>

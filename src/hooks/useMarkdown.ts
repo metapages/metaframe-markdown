@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -43,12 +44,14 @@ export const useMarkdown = (): [string, (m: string) => void] => {
   const [markdownFromHashParamLegacy] = useHashParamBase64(HashKeyMarkdownLegacy);
   const [markdownFromHashParam, setMarkdownFromHashParam] = useHashParamBase64(HashKeyMarkdown);
   const [markdown, setMarkdown] = useState<string>("");
+  const markdownFromUrlRef = useRef<string | undefined>(undefined);
 
   const exportSetMarkdown = useCallback((markdown: string) => {
-
-    setMarkdownFromHashParam(markdown);
-    // Remove url key if it exists
-    setHashParamInWindow(HashKeyUrl, undefined);
+    if (markdownFromUrlRef.current !== markdown) {
+      setMarkdownFromHashParam(markdown);
+      // Remove url key if it exists
+      setHashParamInWindow(HashKeyUrl, undefined);
+    }
   }, [setMarkdownFromHashParam]);
 
   // if there's no URL parameters, default to showing the help
@@ -110,6 +113,7 @@ export const useMarkdown = (): [string, (m: string) => void] => {
         return;
       }
       const payload = await resp.text();
+      markdownFromUrlRef.current = payload;
       setMarkdown(payload);
     })();
   }, [url, setMarkdown]);

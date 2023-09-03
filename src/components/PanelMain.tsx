@@ -36,8 +36,19 @@ export const PanelMain: React.FC = () => {
       MD.use(MermaidPlugIn);
       MD.use(SingleScreenPlugin, options || {});
       MD.use(markdownAnchor, { level: [1, 2, 3] });
+      
+
+      const rules = options?.dm === 'slide' ? {
+        
+        table_close: () => '</table>\n</div>\n</div>',
+        table_open: () => '<div class="row"><div class="rowCellTable">\n<table>\n',
+      
+      } : {};
+
+      MD.renderer.rules = {...MD.renderer.rules, ...rules};
 
       var result = MD.render(markdown);
+      // console.log('result', result);
       divToRender.current!.innerHTML = result;
       Mermaid.run();
     } catch (err) {
@@ -50,20 +61,20 @@ export const PanelMain: React.FC = () => {
   return (
     <div
       id="markdown-root-div"
-      style={RootStyles[options?.displaymode || "default"]}
+      className={options?.dm ? "slideModeRootDiv" : ""}
       ref={divToRender}
     />
   );
 };
 
-const RootStyles: Record<string, any> = {
-  default: {},
-  slide: {
-    display: "flex",
-    height: "100vh",
-    width: "100vw",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-};
+// const RootStyles: Record<string, any> = {
+//   default: {},
+//   slide: {
+//     display: "flex",
+//     height: "100vh",
+//     width: "100vw",
+//     flexDirection: "column",
+//     justifyContent: "flex-start",
+//     alignItems: "flex-start",
+//   },
+// };

@@ -4,6 +4,17 @@ body {
   background-color: transparent;
 }
 
+
+
+.slideModeRootDiv {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .iframe-container {
   overflow: hidden;
   /* 16:9 aspect ratio */
@@ -68,6 +79,7 @@ body {
 
 .row-cell {
   /* Allow shrinkage */
+  
   flex: 1 1 auto;
   height: 100%;
   text-align: center;
@@ -85,6 +97,31 @@ img {
   object-fit: contain;
 }
 
+.rowCellTable {
+  /* Allow shrinkage */
+  flex: 1 1 auto;
+  text-align: center;
+  /* padding: 10px;
+  margin: 10px; */
+}
+
+.maxHeight {
+  height: 100%;
+}
+
+.maxWidth {
+  width: 100%;
+}
+
+.svgContainerCentered {
+  max-width: 100%;
+  display: block;
+}
+
+.parentVerticalCenterChildren {
+  justify-content: center;
+}
+
 .standalone-image-container {
   display: flex;
   justify-content: center;
@@ -96,4 +133,41 @@ img {
   /* background-color: red;
   border: 1px solid red;
   padding: 10px;  */
+}
+
+/* table {
+  margin-left: auto;
+  margin-right: auto;
+} */
+
+.borderFatSolidBlue {
+  border: 5px solid blue;
+}
+
+.borderFatSolidGreen {
+  border: 5px solid green;
+}
+
+.borderFatDashedRed {
+  border: 2px dashed red;
+}
+
+.borderFatDashedBlack {
+  border: 5px dashed black;
+}
+
+.textAlignCenter {
+  text-align: center;
+}
+
+svg {
+  max-height: 100vh;
+
+  margin: 0 auto; /* poor attempt at centering */
+
+  height: auto !important; /* overrides inline */
+  width: auto !important; /* overrides inline */ 
+  
+  display: block;
+  max-width: 100%;
 }

@@ -8,10 +8,16 @@ const htmlEntities = (str) =>
 
 const MermaidChart = (code) => {
   try {
-    return `<div class="mermaid" style={{width:"100%"}}>${code}</div>`;
+    return `<div class="row maxWidth"><div class="row-cell standalone-image-container"><div class="mermaid maxWidth">${code}</div></div></div>`;
   } catch (err) {
     return `<pre>${htmlEntities(err.name)}: ${htmlEntities(err.message)}</pre>`;
   }
+  // try {
+  //   return `<div class="mermaid maxWidth">${code}</div>`;
+  // } catch (err) {
+  //   return `<pre>${htmlEntities(err.name)}: ${htmlEntities(err.message)}</pre>`;
+  // }
+
 };
 
 const MermaidPlugIn = (md, opts) => {

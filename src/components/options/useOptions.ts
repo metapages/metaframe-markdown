@@ -3,7 +3,7 @@ import { useHashParamJson } from '@metapages/hash-query';
 export type DisplayMode = "default" | "slide";
 
 export type Options = {
-  displaymode?: DisplayMode | undefined;
+  dm?: DisplayMode | undefined;
 };
 
 const HashKeyOptions = "options";

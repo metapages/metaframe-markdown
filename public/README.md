@@ -24,28 +24,28 @@ This makes the URL
 ## **How to create / edit**
 
 
-<div style="display: flex; justify-content: space-evenly; flex-direction: row; flex-wrap: nowrap; "><div><p>To modify the options, edit them in the webpage, then copy the URL with the copy button </p>
-</div><div><p><img src="./readme-images/image-1.png" alt="Untitled.png" /></p>
-</div><div>
+<div class="row"><div class="row-cell">To modify the options, edit them in the webpage, then copy the URL with the copy button 
+</div><div class="row-cell"><img src="./readme-images/image-1.png" alt="Untitled.png" />
+</div><div class="row-cell">
 <br/></div></div>
 
 
 **Option 1: Pasting or write markdown in the embedded editor**
 
 
-<div style="display: flex; justify-content: space-evenly; flex-direction: row; flex-wrap: nowrap; "><div>
-<br/></div><div><p><img src="./readme-images/image-2.png" alt="Untitled.png" /></p>
-</div><div>
+<div class="row"><div class="row-cell">
+<br/></div><div class="row-cell"><img src="./readme-images/image-2.png" alt="Untitled.png" />
+</div><div class="row-cell">
 <br/></div></div>
 
 
 **Option 2: Embedding markdown via a download link**
 
 
-<div style="display: flex; justify-content: space-evenly; flex-direction: row; flex-wrap: nowrap; "><div><p>The link points to a URL where the markdown text will be downloaded.</p>
-</div><div><p><img src="./readme-images/image-3.png" alt="Untitled.png" /></p>
-</div><div>
-<br/></div><div>
+<div class="row"><div class="row-cell">The link points to a URL where the markdown text will be downloaded.
+</div><div class="row-cell"><img src="./readme-images/image-3.png" alt="Untitled.png" />
+</div><div class="row-cell">
+<br/></div><div class="row-cell">
 <br/></div></div>
 
 
