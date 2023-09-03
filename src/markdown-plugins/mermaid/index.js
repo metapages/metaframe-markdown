@@ -8,7 +8,7 @@ const htmlEntities = (str) =>
 
 const MermaidChart = (code) => {
   try {
-    return `<div class="row maxWidth"><div class="row-cell standalone-image-container"><div class="mermaid maxWidth">${code}</div></div></div>`;
+    return `<div class="row maxWidth"><div class="mermaid row-cell standalone-image-container maxHeight">${code}</div></div>`;
   } catch (err) {
     return `<pre>${htmlEntities(err.name)}: ${htmlEntities(err.message)}</pre>`;
   }

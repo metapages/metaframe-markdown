@@ -54,8 +54,6 @@ export const PanelOptions: React.FC = () => {
     validationSchema,
   });
 
-  console.log('formik?.values?.dm', formik?.values?.dm);
-
   return (
     <VStack
       maxW="700px"

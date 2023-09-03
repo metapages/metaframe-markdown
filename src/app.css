@@ -160,7 +160,7 @@ img {
   text-align: center;
 }
 
-svg {
+.mermaidBox {
   max-height: 100vh;
 
   margin: 0 auto; /* poor attempt at centering */
