@@ -8,7 +8,7 @@ Metaframe (configurable website) for showing markdown.
 The URL contains the entire markdown text:
 
 
-> 🔗 https://markdown.mtfm.io#?md=**<encoded markdown>**
+🔗 [`https://markdown.mtfm.io#?md=`](https://markdown.mtfm.io/#?md=)`<encoded markdown>`
 
 
 This makes the URL
@@ -24,13 +24,19 @@ This makes the URL
 ## **How to create / edit**
 
 
-<div class="row"><div class="row-cell">To modify the options, edit them in the webpage, then copy the URL with the copy button 
-</div><div class="row-cell"><img src="./readme-images/image-1.png" alt="Untitled.png" />
+To modify the options, edit them in the webpage, then copy the URL with the copy button. The URL contains all content and options. 
+
+
+<div class="row"><div class="row-cell">
+<br/></div><div class="row-cell"><img src="./readme-images/image-1.png" alt="Untitled.png" />
 </div><div class="row-cell">
 <br/></div></div>
 
 
-**Option 1: Pasting or write markdown in the embedded editor**
+**Create/Edit Option 1: Pasting or write markdown in the embedded editor**
+
+
+Manually write or paste in markdown into the embedded editor:
 
 
 <div class="row"><div class="row-cell">
@@ -39,20 +45,35 @@ This makes the URL
 <br/></div></div>
 
 
-**Option 2: Embedding markdown via a download link**
+When finished, copy the URL, or click on the copy button at the top.
 
 
-<div class="row"><div class="row-cell">The link points to a URL where the markdown text will be downloaded.
-</div><div class="row-cell"><img src="./readme-images/image-3.png" alt="Untitled.png" />
+**Create/Edit Option 2: Embedding markdown via a download link**
+
+
+Add a link that will make the site download markdown content from another location:
+
+
+<div class="row"><div class="row-cell">
+<br/></div><div class="row-cell"><img src="./readme-images/image-3.png" alt="Untitled.png" />
 </div><div class="row-cell">
 <br/></div><div class="row-cell">
 <br/></div></div>
+
+
+**Create/Edit Option 3: Automatically generate URLs**
+
+
+See below for a code example
 
 
 ## Dynamically add content
 
 
 ### Dynamic content via metapages
+
+
+Data flow when the metaframe is embedded. This allows dynamic markdown rendering
 
 
 ```mermaid
