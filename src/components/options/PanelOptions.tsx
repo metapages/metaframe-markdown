@@ -29,8 +29,8 @@ const OptionDescription: Record<string, string> = {
 const validationSchema = yup.object({
   dm: yup
     .string()
-    .oneOf(["default", "slide"] as DisplayMode[])
-    .optional(),
+    .notRequired()
+    .oneOf(["default", "slide"] as DisplayMode[]),
 });
 interface FormType extends yup.InferType<typeof validationSchema> {}
 

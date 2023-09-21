@@ -39,17 +39,13 @@ dev: _mkcert _ensure_npm_modules (_tsc "--build")
     set -euo pipefail
     APP_ORIGIN=https://${APP_FQDN}:${APP_PORT}
     echo "Browser development pointing to: ${APP_ORIGIN}"
-    MAYBE_OPEN_BROWSER=""
-    if [ ! -f /.dockerenv ]; then
-        export MAYBE_OPEN_BROWSER="--open";
-    fi
     npm i
     export HOST={{APP_FQDN}}
     export PORT={{APP_PORT}}
     export CERT_FILE=.certs/{{APP_FQDN}}.pem
     export CERT_KEY_FILE=.certs/{{APP_FQDN}}-key.pem
     export BASE=
-    VITE_APP_ORIGIN=${APP_ORIGIN} {{vite}} --clearScreen false ${MAYBE_OPEN_BROWSER}
+    VITE_APP_ORIGIN=${APP_ORIGIN} {{vite}} --clearScreen false
 
 generate-readme-from-notion:
     NOTION_PAGE_ID="https://www.notion.so/metapages/README-md-markdown-mtfm-io-4e9e1f23e599460fa9a8320b5cbde988?pvs=4" just ~/dev/git/metapages/cetami.io/api/functions/notion-page-to-markdown {{justfile_directory()}}/public README.md

@@ -1,5 +1,7 @@
 import '/@/app.css';
 
+import { useState } from 'react';
+
 import { PanelHelp } from '/@/components/PanelHelp';
 import { PanelMain } from '/@/components/PanelMain';
 import { FiSettings } from 'react-icons/fi';
@@ -26,9 +28,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import {
+  isIframe,
   useHashParam,
-  useHashParamBoolean,
-  useHashParamInt,
 } from '@metapages/hash-query';
 
 import {
@@ -37,13 +38,15 @@ import {
 import { PanelOptions } from './components/options/PanelOptions';
 import { PanelMarkdownEditor } from './components/PanelMarkdownEditor';
 
+const isFramed = isIframe();
+
 export const App: React.FC = () => {
-  const [hideMenu] = useHashParamBoolean("menuhidden");
-  const [mode] = useHashParam("button", undefined);
-  const [tab, setTab] = useHashParamInt("tab");
+  const [menuhidden, setMenuHidden] = useState<boolean>(isFramed);
+  const [mode] = useHashParam("hm", undefined);
+  const [tab, setTab] = useState<number>(0);
   const toast = useToast();
 
-  if (hideMenu) {
+  if (menuhidden) {
     if (mode === undefined || mode === "visible" || mode === "invisible") {
       return (
         <>
@@ -54,13 +57,13 @@ export const App: React.FC = () => {
           >
             <Spacer />
             <Show breakpoint="(min-width: 200px)">
-              <ButtonTabsToggle />
+              <ButtonTabsToggle menuhidden={menuhidden} setMenuHidden={setMenuHidden} mode={mode}/>
             </Show>
           </HStack>
           <PanelMain />
         </>
       );
-    } else if (mode === "hidden") {
+    } else if (mode === "disabled") {
       return <PanelMain />;
     }
   }
@@ -118,7 +121,7 @@ export const App: React.FC = () => {
             />
           </Tooltip>
           <Spacer />
-          <ButtonTabsToggle />
+          <ButtonTabsToggle menuhidden={menuhidden} setMenuHidden={setMenuHidden} mode={mode} />
         </TabList>
 
         <TabPanels>

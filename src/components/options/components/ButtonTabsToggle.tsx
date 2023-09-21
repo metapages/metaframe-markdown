@@ -5,18 +5,14 @@ import {
   IconButton,
   Tooltip,
 } from '@chakra-ui/react';
-import {
-  useHashParam,
-  useHashParamBoolean,
-} from '@metapages/hash-query';
 
-export const ButtonTabsToggle: React.FC = () => {
-  const [mode] = useHashParam("button", undefined);
-  const [hideMenu, sethideMenu] = useHashParamBoolean("menuhidden");
+export const ButtonTabsToggle: React.FC<{menuhidden:boolean, setMenuHidden:(v:boolean) => void, mode:string|undefined}> = ({mode, menuhidden, setMenuHidden}) => {
+  // const [mode] = useHashParam("button", undefined);
+  // const [hideMenu, sethideMenu] = useHashParamBoolean("menuhidden");
 
   const toggleMenu = useCallback(() => {
-    sethideMenu(!hideMenu);
-  }, [hideMenu, sethideMenu]);
+    setMenuHidden(!menuhidden);
+  }, [menuhidden, setMenuHidden]);
 
   const button = (
     <IconButton
@@ -24,12 +20,12 @@ export const ButtonTabsToggle: React.FC = () => {
       variant="ghost"
       color="gray.400"
       onClick={toggleMenu}
-      opacity={(mode === "invisible" || mode === "hidden") && hideMenu ? 0 : 1}
-      disabled={mode === "hidden" && hideMenu}
+      opacity={( mode === "invisible" || mode === "disabled") && menuhidden ? 0 : 1}
+      disabled={mode === "disabled" && menuhidden}
       icon={<HamburgerIcon />}
     />
   );
-  if (hideMenu || mode === "invisible" || mode === "hidden") {
+  if (menuhidden || mode === "invisible" || mode === "disabled") {
     return button;
   }
   return <Tooltip label="Toggle view mode">{button}</Tooltip>;

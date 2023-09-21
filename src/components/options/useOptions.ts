@@ -13,7 +13,7 @@ export type Options = {
 
 const HashKeyOptions = "options";
 
-export const useOptions = (defaultOptions?:Options|undefined): [Options|undefined, (o: Options|undefined) => void] => {
+export const useOptions = (defaultOptions?:Options|undefined): [Options, (o: Options|undefined) => void] => {
   const [options, setOptionsInHash] = useHashParamJson<Options|undefined>(HashKeyOptions, defaultOptions);
   const [localOptions, setLocalOptions] = useState<Options|undefined>(options);
   useEffect(() => {
@@ -26,5 +26,5 @@ export const useOptions = (defaultOptions?:Options|undefined): [Options|undefine
 
   }, [localOptions, setOptionsInHash]);
 
-  return [options, setLocalOptions];
+  return [options || {}, setLocalOptions];
 };
