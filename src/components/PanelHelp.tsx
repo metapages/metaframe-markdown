@@ -6,7 +6,7 @@ export const PanelHelp: React.FC = () => {
       <iframe
         className="iframe"
         // In this case only, we are used to display our own help
-        src={`${window.location.origin}/#?button=hidden&menuhidden=true&tab=1&url=${window.location.origin}${window.location.pathname}/README.md`}
+        src={`${window.location.origin}/#?hm=disabled&url=${window.location.origin}${window.location.pathname}/README.md`}
       />
     </Box>
   );
