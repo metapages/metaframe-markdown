@@ -7,9 +7,7 @@ import {
 } from '@chakra-ui/react';
 
 export const ButtonTabsToggle: React.FC<{menuhidden:boolean, setMenuHidden:(v:boolean) => void, mode:string|undefined}> = ({mode, menuhidden, setMenuHidden}) => {
-  // const [mode] = useHashParam("button", undefined);
-  // const [hideMenu, sethideMenu] = useHashParamBoolean("menuhidden");
-
+  
   const toggleMenu = useCallback(() => {
     setMenuHidden(!menuhidden);
   }, [menuhidden, setMenuHidden]);

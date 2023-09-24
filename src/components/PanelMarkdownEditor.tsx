@@ -11,10 +11,10 @@ export const PanelMarkdownEditor: React.FC = () => {
     
   const onOutputs = useCallback(
     (outputs: MetaframeInputMap) => {
-      if (outputs["value"] === undefined || outputs["value"] === null) {
+      if (outputs["text"] === undefined || outputs["text"] === null) {
         return;
       }
-      setMarkdown(outputs["value"]);
+      setMarkdown(outputs["text"]);
     },
     [setMarkdown]
   );
@@ -23,7 +23,7 @@ export const PanelMarkdownEditor: React.FC = () => {
     <div>
       <MetaframeStandaloneComponent
         url="https://editor.mtfm.io/#?button=hidden&menuhidden=true&options=JTdCJTIyYXV0b3NlbmQlMjIlM0F0cnVlJTJDJTIybW9kZSUyMiUzQSUyMm1hcmtkb3duJTIyJTJDJTIyc2F2ZWxvYWRpbmhhc2glMjIlM0F0cnVlJTJDJTIydGhlbWUlMjIlM0ElMjJsaWdodCUyMiU3RA=="
-        inputs={{ value: markdown}}
+        inputs={{ text: markdown}}
         onOutputs={onOutputs}
       />
     </div>
