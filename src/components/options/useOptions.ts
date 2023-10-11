@@ -9,6 +9,10 @@ export type DisplayMode = "default" | "slide";
 
 export type Options = {
   dm?: DisplayMode | undefined;
+  /**
+   * Header classnames
+   */
+  h?: string;
 };
 
 const HashKeyOptions = "options";

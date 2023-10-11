@@ -78,7 +78,7 @@ body {
 .row-cell {
   /* Allow shrinkage */
   
-  flex: 1 1 auto;
+  flex: 1 1 0px;
   height: 100%;
   text-align: center;
   /* align-self: center; */
@@ -154,7 +154,7 @@ img {
   border: 5px dashed black;
 }
 
-.textAlignCenter {
+.text-align-center {
   text-align: center;
 }
 

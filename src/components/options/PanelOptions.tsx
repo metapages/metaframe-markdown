@@ -6,8 +6,11 @@ import * as yup from 'yup';
 import {
   Button,
   Checkbox,
+  Code,
   FormControl,
+  FormHelperText,
   FormLabel,
+  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -95,6 +98,20 @@ export const PanelOptions: React.FC = () => {
             </Stack>
           </RadioGroup>
         </FormControl>
+
+
+
+
+        <FormControl pb="1rem">
+          <FormLabel fontWeight="bold">
+            Header classnames
+          </FormLabel>
+          <Input type='string' name='h' value={formik.values.h || ""} onChange={formik.handleChange} />
+            <FormHelperText>Available: <Code>text-align-center</Code></FormHelperText>
+        </FormControl>
+
+
+
 
         {Object.keys(validationSchema.fields as any)
           .filter(
