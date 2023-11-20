@@ -105,7 +105,9 @@ export const useMarkdown = (): [string, (m: string) => void] => {
       return;
     }
     (async () => {
-      const resp = await fetch(url);
+      const resp = await fetch(url, {
+        mode: "cors",
+      });
       if (!resp.ok) {
         setMarkdown(
           `# Error getting URL: ${url}\n\n - status: ${resp.status}\n - statusText: ${resp.statusText}`
