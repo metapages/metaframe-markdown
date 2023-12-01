@@ -66,15 +66,3 @@ export const PanelMain: React.FC = () => {
     />
   );
 };
-
-// const RootStyles: Record<string, any> = {
-//   default: {},
-//   slide: {
-//     display: "flex",
-//     height: "100vh",
-//     width: "100vw",
-//     flexDirection: "column",
-//     justifyContent: "flex-start",
-//     alignItems: "flex-start",
-//   },
-// };

@@ -58,6 +58,15 @@ body {
   }
 }
 
+@media (prefers-color-scheme: light) {
+  body {
+    background: transparent;
+  }
+  .markdown-body {
+    background-color: transparent;
+  }
+}
+
 .row {
   display: flex;
   direction: row;

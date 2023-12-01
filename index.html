@@ -13,6 +13,33 @@
     <meta property="og:title" content="Markdown embedded in a URL"/>
     <meta property="og:description" content="Write, render, embed and display markdown with the markdown metaframe."/>
     <meta property="og:site_name" content="Metaframe: markdown"/>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        border: 0;
+        /* No floating content on sides */
+        display: block;
+        background: none transparent;
+        /* background-color: blueviolet; */
+      }
+      .transparent {
+        background: none transparent;
+      }
+      /* apply a natural box layout model to all elements, but allowing components to change */
+      /* https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
