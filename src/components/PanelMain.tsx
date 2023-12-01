@@ -7,6 +7,8 @@ import md from 'markdown-it';
 import markdownAnchor from 'markdown-it-anchor';
 import Mermaid from 'mermaid';
 
+import { Box } from '@chakra-ui/react';
+
 import { useMarkdown } from '../hooks/useMarkdown';
 import { MermaidPlugIn } from '../markdown-plugins/mermaid';
 import SingleScreenPlugin from '../markdown-plugins/single-screen';
@@ -59,10 +61,11 @@ export const PanelMain: React.FC = () => {
   }, [markdown, divToRender, options]);
 
   return (
-    <div
+    <Box
       id="markdown-root-div"
       className={options?.dm ? "slideModeRootDiv" : ""}
       ref={divToRender}
+      m="1em"
     />
   );
 };
