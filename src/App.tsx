@@ -27,10 +27,7 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import {
-  isIframe,
-  useHashParam,
-} from '@metapages/hash-query';
+import { useHashParam } from '@metapages/hash-query';
 
 import {
   ButtonTabsToggle,
@@ -38,10 +35,8 @@ import {
 import { PanelOptions } from './components/options/PanelOptions';
 import { PanelMarkdownEditor } from './components/PanelMarkdownEditor';
 
-const isFramed = isIframe();
-
 export const App: React.FC = () => {
-  const [menuhidden, setMenuHidden] = useState<boolean>(isFramed);
+  const [menuhidden, setMenuHidden] = useState<boolean>(true);
   const [mode] = useHashParam("hm", undefined);
   const [tab, setTab] = useState<number>(0);
   const toast = useToast();
@@ -57,7 +52,11 @@ export const App: React.FC = () => {
           >
             <Spacer />
             <Show breakpoint="(min-width: 200px)">
-              <ButtonTabsToggle menuhidden={menuhidden} setMenuHidden={setMenuHidden} mode={mode}/>
+              <ButtonTabsToggle
+                menuhidden={menuhidden}
+                setMenuHidden={setMenuHidden}
+                mode={mode}
+              />
             </Show>
           </HStack>
           <PanelMain />
@@ -121,7 +120,11 @@ export const App: React.FC = () => {
             />
           </Tooltip>
           <Spacer />
-          <ButtonTabsToggle menuhidden={menuhidden} setMenuHidden={setMenuHidden} mode={mode} />
+          <ButtonTabsToggle
+            menuhidden={menuhidden}
+            setMenuHidden={setMenuHidden}
+            mode={mode}
+          />
         </TabList>
 
         <TabPanels>
