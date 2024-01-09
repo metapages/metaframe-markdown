@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { FaCheck } from 'react-icons/fa';
+import { MdEdit } from 'react-icons/md';
+
 import {
   IconButton,
   Tooltip,
@@ -20,7 +22,7 @@ export const ButtonTabsToggle: React.FC<{menuhidden:boolean, setMenuHidden:(v:bo
       onClick={toggleMenu}
       opacity={( mode === "invisible" || mode === "disabled") && menuhidden ? 0 : 1}
       disabled={mode === "disabled" && menuhidden}
-      icon={<HamburgerIcon />}
+      icon={menuhidden ?  <MdEdit /> : <FaCheck color="green"/>}
     />
   );
   if (menuhidden || mode === "invisible" || mode === "disabled") {

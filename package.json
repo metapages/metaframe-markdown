@@ -29,6 +29,7 @@
     "@metapages/metapage": "^0.13.5",
     "@metapages/metapage-embed-react": "^0.0.20",
     "@types/markdown-it": "^13.0.0",
+    "debounce": "^2.0.0",
     "formik": "^2.4.3",
     "framer-motion": "^7.3.6",
     "github-markdown-css": "^5.1.0",
@@ -37,10 +38,11 @@
     "mermaid": "^10.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1",
+    "react-icons": "^4.12.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/debounce": "^1.2.4",
     "@types/node": "^16.18.40",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
