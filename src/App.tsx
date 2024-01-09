@@ -69,14 +69,6 @@ export const App: React.FC = () => {
     <VStack align="flex-start" w="100%">
       <Tabs index={tab || 0} isLazy={true} onChange={setTab} w="100%">
         <TabList>
-          {/* <Tab>
-            <Tooltip label="View markdown page">
-              <HStack spacing="0px">
-                <ViewIcon />
-                <Box>&nbsp; Markdown</Box>
-              </HStack>
-            </Tooltip>
-          </Tab> */}
           <Tab>
             <Tooltip label="Edit markdown directly">
               <HStack spacing="0px">
@@ -127,9 +119,7 @@ export const App: React.FC = () => {
         </TabList>
 
         <TabPanels>
-          {/* <TabPanel>
-            <PanelMain />
-          </TabPanel> */}
+
           <TabPanel>
             <PanelMarkdownEditor />
           </TabPanel>
@@ -137,9 +127,11 @@ export const App: React.FC = () => {
           <TabPanel>
             <PanelOptions />
           </TabPanel>
+
           <TabPanel>
             <PanelHelp />
           </TabPanel>
+          
         </TabPanels>
       </Tabs>
     </VStack>

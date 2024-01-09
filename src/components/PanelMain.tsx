@@ -50,7 +50,6 @@ export const PanelMain: React.FC = () => {
       MD.renderer.rules = {...MD.renderer.rules, ...rules};
 
       var result = MD.render(markdown);
-      // console.log('result', result);
       divToRender.current!.innerHTML = result;
       Mermaid.run();
     } catch (err) {

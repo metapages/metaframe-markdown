@@ -42,33 +42,17 @@ export const useMarkdown = (): [string, (m: string) => void] => {
   const metaframeBlob = useMetaframeAndInput();
   const [url] = useHashParam(HashKeyUrl);
   const [markdownFromHashParamLegacy] = useHashParamBase64(HashKeyMarkdownLegacy);
-  const [markdownFromHashParam, setMarkdownFromHashParam] = useHashParamBase64(HashKeyMarkdown);
+  const [markdownFromHashParam, setMarkdownInHashParam] = useHashParamBase64(HashKeyMarkdown);
   const [markdown, setMarkdown] = useState<string>("");
   const markdownFromUrlRef = useRef<string | undefined>(undefined);
 
   const exportSetMarkdown = useCallback((markdown: string) => {
     if (markdownFromUrlRef.current !== markdown) {
-      setMarkdownFromHashParam(markdown);
+      setMarkdownInHashParam(markdown === "" ? undefined : markdown);
       // Remove url key if it exists
       setHashParamInWindow(HashKeyUrl, undefined);
     }
-  }, [setMarkdownFromHashParam]);
-
-  // if there's no URL parameters, default to showing the help
-  useEffect(() => {
-    let timeout: number | undefined;
-    if (markdown === "" && !url && !markdownFromHashParam && !markdownFromHashParamLegacy) {
-      timeout = setTimeout(() => {
-        setMarkdown(HELP);
-      }, 200);
-    }
-
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  }, [url, markdownFromHashParam, markdownFromHashParamLegacy, markdown, setMarkdown]);
+  }, [setMarkdownInHashParam]);
 
   // whatever metaframe inputs we get, assume raw markdown, render
   useEffect(() => {
