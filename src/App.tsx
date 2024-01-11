@@ -34,8 +34,12 @@ import {
 import { PanelOptions } from './components/options/PanelOptions';
 import { PanelMarkdownEditor } from './components/PanelMarkdownEditor';
 
+const isSearchParamTruthy = (param: string | null | undefined) => {
+  return !!(param && param !== "0" && param.toLowerCase() !== "false");
+}
+
 export const App: React.FC = () => {
-  const [menuhidden, setMenuHidden] = useState<boolean>(true);
+  const [menuhidden, setMenuHidden] = useState<boolean>(!isSearchParamTruthy(new URLSearchParams(window.location.search).get("edit")));
   const [mode] = useHashParam("hm", undefined);
   const [tab, setTab] = useState<number>(0);
   const toast = useToast();
