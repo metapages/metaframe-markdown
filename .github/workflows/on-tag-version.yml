@@ -31,7 +31,7 @@ jobs:
           just-version: '1.14.0'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+ 
       - name: Setup deno
         uses: denoland/setup-deno@v1
         with:
