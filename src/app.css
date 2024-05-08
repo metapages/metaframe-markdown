@@ -1,7 +1,9 @@
 html,
 body {
   /* height: 100vh; */
-  background-color: transparent;
+  /* background-color: transparent; */
+  /* color: light-dark(#333b3c, #efefec); */
+  background-color: light-dark(#ffffff, #000000);
 }
 
 .slideModeRootDiv {
