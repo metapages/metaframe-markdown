@@ -93,12 +93,20 @@ graph LR
 ```
 
 - input pipes:
-	- `md`
+	- `md` | `markdown`
 		- Raw markdown text
-	- `md-base64`
+	- `md-base64` | `markdown-base64`
 		- base64 encoded markdown text
+  - `mermaid`
+    - mermaid diagrams as text
+  - `mermaid-base64`
+    - base64 encoded mermaid diagrams as text 
 
 Any text coming in those input pipes will be immediately rendered. If there is markdown embedded in the URL, that will be rendered first, but replaced by any markdown from input pipes.
+
+ - output pipes
+   - `click`
+     - From clickable mermaid flowcharts
 
 
 ## Embed markdown renderer in another application

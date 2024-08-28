@@ -17,7 +17,7 @@ import {
   useHashParam,
   useHashParamBase64,
 } from '@metapages/hash-query';
-import { useMetaframeAndInput } from '@metapages/metaframe-hook';
+import { useMetaframe } from '@metapages/metaframe-hook';
 
 let HELP = help;
 if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
@@ -38,50 +38,91 @@ const decodeMarkdown = (b64: string) => {
 };
 
 export const useMarkdown = (): [string, (m: string) => void] => {
-  
-  const metaframeBlob = useMetaframeAndInput();
+  const metaframeBlob = useMetaframe();
   const [url] = useHashParam(HashKeyUrl);
-  const [markdownFromHashParamLegacy] = useHashParamBase64(HashKeyMarkdownLegacy);
-  const [markdownFromHashParam, setMarkdownInHashParam] = useHashParamBase64(HashKeyMarkdown);
+  const [markdownFromHashParamLegacy] = useHashParamBase64(
+    HashKeyMarkdownLegacy
+  );
+  const [markdownFromHashParam, setMarkdownInHashParam] =
+    useHashParamBase64(HashKeyMarkdown);
   const [markdown, setMarkdown] = useState<string>("");
   const markdownFromUrlRef = useRef<string | undefined>(undefined);
+  const previousInputRef = useRef<string | undefined>(undefined);
 
-  const exportSetMarkdown = useCallback((markdown: string) => {
-    if (markdownFromUrlRef.current !== markdown) {
-      setMarkdownInHashParam(markdown === "" ? undefined : markdown);
-      // Remove url key if it exists
-      setHashParamInWindow(HashKeyUrl, undefined);
+  const setMarkdownIfNew = useCallback((markdown: string) => {
+    if (previousInputRef.current !== markdown) {
+      setMarkdown(markdown);
+      previousInputRef.current = markdown;
     }
-  }, [setMarkdownInHashParam]);
+  }, []);
+
+  const exportSetMarkdown = useCallback(
+    (markdown: string) => {
+      if (markdownFromUrlRef.current !== markdown) {
+        setMarkdownInHashParam(markdown === "" ? undefined : markdown);
+        // Remove url key if it exists
+        setHashParamInWindow(HashKeyUrl, undefined);
+      }
+    },
+    [setMarkdownInHashParam]
+  );
 
   // whatever metaframe inputs we get, assume raw markdown, render
   useEffect(() => {
-
-    if (!metaframeBlob.inputs) {
+    if (!metaframeBlob.metaframe) {
       return;
     }
 
-    if (metaframeBlob.inputs["markdown"]) {
-        setMarkdown(metaframeBlob.inputs["markdown"]);
+    const metaframe = metaframeBlob.metaframe;
+
+    // Listen to mermaid click events
+    (globalThis as any).handleClick = (nodeClickText: string) => {
+      metaframe.setOutput("click", nodeClickText);
+    };
+
+    const disposer = metaframe.onInputs((inputs) => {
+      if (!inputs) {
         return;
-    } else if (metaframeBlob.inputs["md"]) {
-        setMarkdown(metaframeBlob.inputs["md"]);
+      }
+      if (inputs["markdown"]) {
+        setMarkdownIfNew(inputs["markdown"]);
         return;
-    } else if (metaframeBlob.inputs["markdown-base64"] || metaframeBlob.inputs["md-base64"]) {
-        let data = metaframeBlob.inputs["markdown-base64"] || metaframeBlob.inputs["md-base64"];
+      } else if (inputs["md"]) {
+        setMarkdownIfNew(inputs["md"]);
+        return;
+      } else if (inputs["markdown-base64"] || inputs["md-base64"]) {
+        let data = inputs["markdown-base64"] || inputs["md-base64"];
         if (data) {
-            try {
-                data = decodeMarkdown(data);
-            } catch (err) {
-                setMarkdown(
-                `# Error atob from base64 metaframe input:\n\n - key: "${metaframeBlob.inputs["markdown-base64"] ? "markdown-base64" : "md-base64"}"\n - value: ${data} \n - err: ${err}`
-                );
-                return;
-            }
-            setMarkdown(data);
+          try {
+            data = decodeMarkdown(data);
+          } catch (err) {
+            setMarkdownIfNew(
+              `# Error atob from base64 metaframe input:\n\n - key: "${
+                inputs["markdown-base64"] ? "markdown-base64" : "md-base64"
+              }"\n - value: ${data} \n - err: ${err}`
+            );
+            return;
+          }
+          setMarkdownIfNew(data);
         }
-    }
-  }, [metaframeBlob.inputs, setMarkdown]);
+      } else if (inputs["mermaid"]) {
+        let mermaidDiagram = inputs["mermaid"];
+        setMarkdownIfNew("```mermaid\n" + mermaidDiagram + "\n```");
+      } else if (inputs["mermaid-base64"]) {
+        try {
+          const mermaidDiagram = decodeMarkdown(inputs["mermaid-base64"]);
+          setMarkdownIfNew("```mermaid\n" + mermaidDiagram + "\n```");
+        } catch (err) {
+          setMarkdownIfNew(
+            `# Error atob from base64 metaframe input:\n\n - key: mermaid-base64"\n - value: ${inputs["mermaid-base64"]} \n - err: ${err}`
+          );
+          return;
+        }
+      }
+    });
+
+    return disposer;
+  }, [metaframeBlob?.metaframe, setMarkdownIfNew]);
 
   // if url hash param, use that
   useEffect(() => {
@@ -106,7 +147,10 @@ export const useMarkdown = (): [string, (m: string) => void] => {
 
   // if base64 hash param, use that
   useEffect(() => {
-    if ((!markdownFromHashParam || markdownFromHashParam === "") && (!markdownFromHashParamLegacy|| markdownFromHashParamLegacy === "")) {
+    if (
+      (!markdownFromHashParam || markdownFromHashParam === "") &&
+      (!markdownFromHashParamLegacy || markdownFromHashParamLegacy === "")
+    ) {
       return;
     }
     setMarkdown(markdownFromHashParam || markdownFromHashParamLegacy);
