@@ -26,7 +26,7 @@ export const PanelMain: React.FC = () => {
 
   // render
   useEffect(() => {
-    if (!markdown || markdown === "" || !divToRender?.current) {
+    if (!markdown || !divToRender?.current) {
       return;
     }
     try {
