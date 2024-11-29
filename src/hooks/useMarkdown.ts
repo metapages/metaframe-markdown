@@ -132,6 +132,7 @@ export const useMarkdown = (): [string, (m: string) => void] => {
     (async () => {
       const resp = await fetch(url, {
         mode: "cors",
+        redirect: "follow",
       });
       if (!resp.ok) {
         setMarkdown(
@@ -139,7 +140,33 @@ export const useMarkdown = (): [string, (m: string) => void] => {
         );
         return;
       }
-      const payload = await resp.text();
+      let payload = await resp.text();
+      
+      // Get the base URL from the provided URL
+      const baseUrl = new URL(url).origin;
+      
+      // Replace relative markdown image URLs with absolute URLs
+      payload = payload.replace(
+        /!\[([^\]]*)\]\((?!http|https)([^)]+)\)/g,
+        (match, altText, imagePath) => {
+          const absoluteUrl = imagePath.startsWith('/')
+            ? `${baseUrl}${imagePath}`
+            : `${url.substring(0, url.lastIndexOf('/'))}/${imagePath}`;
+          return `![${altText}](${absoluteUrl})`;
+        }
+      );
+
+      // Replace relative HTML img tag URLs with absolute URLs
+      payload = payload.replace(
+        /<img\s+[^>]*src=["'](?!http|https)([^"']+)["'][^>]*>/g,
+        (match, imagePath) => {
+          const absoluteUrl = imagePath.startsWith('/')
+            ? `${baseUrl}${imagePath}`
+            : `${url.substring(0, url.lastIndexOf('/'))}/${imagePath}`;
+          return match.replace(imagePath, absoluteUrl);
+        }
+      );
+
       markdownFromUrlRef.current = payload;
       setMarkdown(payload);
     })();
