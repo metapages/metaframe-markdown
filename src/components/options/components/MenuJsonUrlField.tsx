@@ -20,9 +20,10 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import {
-  setHashParamInWindow,
-  useHashParam,
-} from '@metapages/hash-query';
+  setHashParamInWindow} from '@metapages/hash-query';
+import {
+  useHashParam
+} from '@metapages/hash-query/react-hooks';
 
 /**
  * Set an external URL for the superslides config json

@@ -9,7 +9,7 @@ import { useMarkdown } from '/@/hooks/useMarkdown';
 import debounce from 'debounce';
 
 import { MetaframeInputMap } from '@metapages/metapage';
-import { MetaframeStandaloneComponent } from '@metapages/metapage-embed-react';
+import { MetaframeStandaloneComponent } from '@metapages/metapage-react';
 
 export const PanelMarkdownEditor: React.FC = () => {
   const [markdown, setMarkdown] = useMarkdown();

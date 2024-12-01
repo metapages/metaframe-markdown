@@ -3,7 +3,7 @@ import {
   useState,
 } from 'react';
 
-import { useHashParamJson } from '@metapages/hash-query';
+import { useHashParamJson } from '@metapages/hash-query/react-hooks';
 
 export type DisplayMode = "default" | "slide";
 

@@ -13,11 +13,13 @@ import {
 } from '/@/store';
 
 import {
-  setHashParamInWindow,
   useHashParam,
   useHashParamBase64,
+} from '@metapages/hash-query/react-hooks';
+import {
+  setHashParamInWindow
 } from '@metapages/hash-query';
-import { useMetaframe } from '@metapages/metaframe-hook';
+import { useMetaframe } from '@metapages/metapage-react';
 
 let HELP = help;
 if (import.meta.env.MODE === "development" && import.meta.env.VITE_APP_ORIGIN) {
@@ -180,8 +182,8 @@ export const useMarkdown = (): [string, (m: string) => void] => {
     ) {
       return;
     }
-    setMarkdown(markdownFromHashParam || markdownFromHashParamLegacy);
-  }, [markdownFromHashParam, setMarkdown]);
+    setMarkdown(markdownFromHashParam || markdownFromHashParamLegacy || "");
+  }, [markdownFromHashParam, markdownFromHashParamLegacy, setMarkdown]);
 
   return [markdown, exportSetMarkdown];
 };

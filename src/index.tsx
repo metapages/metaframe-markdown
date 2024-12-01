@@ -7,7 +7,7 @@ import { theme } from '/@/theme';
 import { createRoot } from 'react-dom/client';
 
 import { ChakraProvider } from '@chakra-ui/react';
-import { WithMetaframe } from '@metapages/metaframe-hook';
+import { WithMetaframe } from '@metapages/metapage-react';
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
