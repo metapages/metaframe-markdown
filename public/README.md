@@ -118,13 +118,13 @@ It requires no installation, and is secure due to cross-origin isolation.
 ### E.g. React
 
 
-The help menu on this website uses this page in a external iframed element. While this uses `@metapages/metapage-embed-react` to make some things more convenient, you can also just embed a `<iframe src="<url>" />` element directly:
+The help menu on this website uses this page in a external iframed element. While this uses `@metapages/metapage-react` to make some things more convenient, you can also just embed a `<iframe src="<url>" />` element directly:
 
 
 ```typescript
 import { useCallback } from 'react';
 
-import { MetaframeStandaloneComponent } from '@metapages/metapage-embed-react';
+import { MetaframeStandaloneComponent } from '@metapages/metapage-react';
 
 export const PanelMarkdownEditor: React.FC<{markdown:string}> = ({markdown) => {
   
