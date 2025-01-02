@@ -41,12 +41,14 @@ export const PanelMarkdownEditor: React.FC = () => {
   );
 
   return (
-    <div>
       <MetaframeStandaloneComponent
         url="https://editor.mtfm.io/#?hm=disabled&options=JTdCJTIyYXV0b3NlbmQlMjIlM0F0cnVlJTJDJTIybW9kZSUyMiUzQSUyMm1hcmtkb3duJTIyJTJDJTIydGhlbWUlMjIlM0ElMjJ2cy1kYXJrJTIyJTdE"
         inputs={{ text: localText }}
         onOutputs={onOutputs}
+        style={{
+          height: `calc(100vh - 3rem)`,
+          width: '100%',
+        }}
       />
-    </div>
   );
 };
