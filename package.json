@@ -24,7 +24,7 @@
     "@chakra-ui/react": "^2.3.4",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@metapages/hash-query": "^0.7.6",
+    "@metapages/hash-query": "^0.8.2",
     "@metapages/metapage": "^1.4.4",
     "@metapages/metapage-react": "^0.1.0",
     "@types/markdown-it": "^13.0.0",
