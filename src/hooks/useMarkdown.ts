@@ -12,13 +12,11 @@ import {
   HashKeyUrl,
 } from '/@/store';
 
+import { setHashParamInWindow } from '@metapages/hash-query';
 import {
   useHashParam,
   useHashParamBase64,
 } from '@metapages/hash-query/react-hooks';
-import {
-  setHashParamInWindow
-} from '@metapages/hash-query';
 import { useMetaframe } from '@metapages/metapage-react';
 
 let HELP = help;
@@ -182,7 +180,13 @@ export const useMarkdown = (): [string, (m: string) => void] => {
     ) {
       return;
     }
-    setMarkdown(markdownFromHashParam || markdownFromHashParamLegacy || "");
+    let md = markdownFromHashParam || markdownFromHashParamLegacy || "";
+    // There was a previous issue with URL encoding the markdown in the hash param
+    // so we need to decode it if it starts with a % (assume it's url encoded)
+    if (md.startsWith("%")) {
+      md = decodeURIComponent(md);
+    }
+    setMarkdown(md);
   }, [markdownFromHashParam, markdownFromHashParamLegacy, setMarkdown]);
 
   return [markdown, exportSetMarkdown];
