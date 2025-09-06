@@ -1,0 +1,23 @@
+{
+	"version": "2",
+	"metadata": {
+		"title": "markdown-it",
+		"author": "@dionjwa",
+		"description": "Markdown renderer, with mermaid support"
+	},
+	"inputs": {
+		"markdown": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"md": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"markdown-base64": {
+			"type": "text/markdown; charset=UTF-8"
+		},
+		"md-base64": {
+			"type": "text/markdown; charset=UTF-8"
+		}
+	},
+	"hashParams": ["md", "options", "definition", "modules", "editorWidth", "edit", "bgColor", "hm"]
+}
