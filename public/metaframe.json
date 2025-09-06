@@ -1,9 +1,8 @@
 {
-	"version": "0.3",
+	"version": "2",
 	"metadata": {
-		"version": "1.0",
 		"title": "markdown-it",
-		"author": "Dion Whitehead",
+		"author": "@dionjwa",
 		"description": "Markdown renderer, with mermaid support"
 	},
 	"inputs": {
@@ -19,5 +18,6 @@
 		"md-base64": {
 			"type": "text/markdown; charset=UTF-8"
 		}
-	}
+	},
+	"hashParams": ["md", "options", "definition", "modules", "editorWidth", "edit", "bgColor", "hm"]
 }
